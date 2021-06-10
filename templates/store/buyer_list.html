@@ -1,0 +1,87 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Lista de Compradores{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Compradores</a></li>
+                            <li class="active">Ver</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Lista de Compradores</h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table id="table" class="table table-striped table-bordered cell-border">
+                        <thead>
+                            <tr>
+                                <th class="serial">#</th>
+                                <th>Nombre</th>
+                                <th>Dirección</th>
+                                <th>Teléfono</th>
+                                <th>Fecha de Alta</th>
+                                {% if user.is_superuser %}<th>Acción</th>{% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if buyer %}
+                            {% for buyer in buyer %}
+                                {% if buyer.active %}
+                                <tr>
+                                    <td class="serial">{{ forloop.counter }}</td>
+                                    <td>{{ buyer.name }}</td>
+                                    <td>{{ buyer.address }}</td>
+                                    <td>{{ buyer.phone_number }}</td>
+                                    <td>{{ buyer.created_date }}</td>
+                                    {% if user.is_superuser %}<td>
+                                        <form method='GET' action="{% url 'edit-buyer' %}">
+                                            <input type="hidden" name="buyer" value="{{buyer.id}}">
+                                            <input type="submit" class="btn btn-primary form-control" value="Modificar">
+                                        </form>
+                                        <form method='GET' action="{% url 'delete-buyer' %}" onsubmit="return confirm('¿Seguro que deseas eliminar este comprador?')">
+                                            <input type="hidden" name="buyer" value="{{buyer.id}}">
+                                            <input type="submit" class="btn btn-danger form-control" value="Eliminar">
+                                        </form>
+                                        </td>{% endif %}
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                            {% else %}
+                                <tr><td>No hay información de compradores.</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+    
+</div>
+{% endblock content %}

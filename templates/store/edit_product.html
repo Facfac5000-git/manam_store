@@ -1,0 +1,107 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Edita los datos del producto{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Product</a></li>
+                            <li class="active">Editar</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Edita los datos del producto</strong>
+            </div>
+            <div class="card-body">
+                <!-- Credit Card -->
+                <div id="pay-invoice">
+                    <div class="card-body">
+                        {% if form.errors%}
+                            <div class="alert alert-danger">
+                                <p>{{form.errors}}</p>
+                            </div>
+                        {% endif %}
+                        <form action="#" method="post" novalidate="novalidate" onsubmit="return confirm('¿Estas seguro de modificar este producto?')">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" id="id" value="{{ product_id }}">
+                            <div class="form-group">
+                                <label for="supplier" class="control-label mb-1">Proveedor</label>
+                                {{ form.supplier }}
+                            </div>
+                            <div class="form-group">
+                                <label for="barcode" class="control-label mb-1">Código de Barras</label>
+                                {{ form.barcode }}
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="control-label mb-1">Nombre</label>
+                                {{ form.name }}
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-3">
+                                    <label for="list_price" class="control-label mb-1">Precio de Lista</label>
+                                    {{ form.list_price }}
+                                </div>
+                                <div class="col-3">
+                                    <label for="profit_porc" class="control-label mb-1">Porcentaje</label>
+                                    {{ form.profit_porc }}
+                                </div>
+                                <div class="col-3">
+                                    <label for="rounding" class="control-label mb-1">Redondeo</label>
+                                    {{ form.rounding }}
+                                </div>
+                                <div class="col-3">
+                                    <label for="price" class="control-label mb-1">Precio de Venta</label>
+                                    {{ form.price }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="stock" class="control-label mb-1">Stock</label>
+                                {{ form.stock }}
+                            </div>
+                            <div class="form-group">
+                                <label for="stock_alert" class="control-label mb-1">Alerta de Stock</label>
+                                {{ form.stock_alert }}
+                            </div>
+                            <div class="form-group">
+                                <label for="expire_date" class="control-label mb-1">Fecha de Expiración</label>
+                                {{ form.expire_date }}
+                            </div>
+                            <div>
+                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                    <span id="payment-button-amount">Actualizar Producto</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- .card -->
+
+    </div><!--/.col-->
+</div>
+{% endblock content %}

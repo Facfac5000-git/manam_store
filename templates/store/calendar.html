@@ -1,0 +1,117 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Planilla de Visitas{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Proveedores</a></li>
+                            <li class="active">Planillas de Visitas</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Planilla de Visitas</h4>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="calendar-note">
+                        <h3><i>Lunes:</h3></i><br>
+                        <ul style="padding-left: 30px;">
+                        {% for supplier in days_data.l %}
+                            <li>{{ supplier }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="calendar-note">
+                        <h3><i>Martes:</i></h3><br>
+                        <ul style="padding-left: 30px;">
+                        {% for supplier in days_data.m %}
+                            <li>{{ supplier }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="calendar-note">
+                        <h3><i>Miércoles:</i></h3><br>
+                        <ul style="padding-left: 30px;">
+                        {% for supplier in days_data.mi %}
+                            <li>{{ supplier }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="calendar-note">
+                        <h3><i>Jueves:</i></h3><br>
+                        <ul style="padding-left: 30px;">
+                        {% for supplier in days_data.j %}
+                            <li>{{ supplier }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3 offset-1">
+                    <div class="calendar-note">
+                        <h3><i>Viernes:</i></h3><br>
+                        <ul style="padding-left: 30px;">
+                        {% for supplier in days_data.v %}
+                            <li>{{ supplier }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="calendar-note">
+                        <h3><i>Sábado:</i></h3><br>
+                        <ul style="padding-left: 30px;">
+                        {% for supplier in days_data.s %}
+                            <li>{{ supplier }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="calendar-note">
+                        <h3><i>Domingo:</h3></i><br>
+                        <ul style="padding-left: 30px;">
+                        {% for supplier in days_data.d %}
+                            <li>{{ supplier }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+    
+</div>
+
+{% endblock content %}

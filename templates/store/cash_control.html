@@ -1,0 +1,121 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Planilla de Caja{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Planilla de Caja</a></li>
+                            <li class="active">Control</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Planilla de Caja</h4>
+            </div>
+            {% if form.errors%}
+                <div class="alert alert-danger">
+                    <p>{{form.errors}}</p>
+                </div>
+            {% endif %}
+            <div class="row">
+                <form class="col-12" action="#" method="post" novalidate="novalidate">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{cash_total}}" id="last_total">
+                    <div class="card-body col-8 row">
+                        <div class="form-group col-4">
+                            <label for="date" class="control-label mb-1">Fecha:</label>
+                            {{ form.date }}
+                        </div>
+                        <div class="form-group col-8">
+                            <label for="detail" class="control-label mb-1">Detalle:</label>
+                            {{ form.detail }}
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="amount" class="control-label mb-1">Monto:</label>
+                            {{ form.amount }}
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="type" class="control-label mb-1">Tipo:</label>
+                            {{ form.type }}
+                        </div>
+                        <div class="col-4" style="margin-top: 20px">
+                            <button type="submit" class="btn btn-lg btn-info btn-block">
+                                <span id="cash-button">Grabar</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-4 card-body cash_control">
+                        <h1>Total:</h1><br>
+                        {{ form.total }}
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+                <div class="table-stats order-table ov-h">
+                    <table id="table" class="table table-striped table-bordered cell-border">
+                        <thead>
+                            <tr>
+                                <th class="serial">#</th>
+                                <th>Fecha</th>
+                                <th>Detalle</th>
+                                <th>Monto</th>
+                                <th>Tipo</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if movements %}
+                                {% for movement in movements %}
+                                <tr>
+                                    <td class="serial">{{ forloop.counter }}</td>
+                                    <td>{{ movement.date }}</td>
+                                    <td>{{ movement.detail }}</td>
+                                    <td>{{ movement.amount }}</td>
+                                    <td>
+                                        {% if movement.type == 'i' %}
+                                            <span class="text-success">Ingreso</span>
+                                        {% else %}
+                                            <span class="text-danger">Egreso</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ movement.total }}</td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr><td>No hay datos de movimientos de caja.</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+    
+</div>
+
+{% endblock content %}

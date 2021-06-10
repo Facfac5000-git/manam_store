@@ -1,0 +1,131 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block content %}
+    <!-- Widgets  -->
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-1">
+                            <i class="fa fa-cart-plus"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count">{{ order }}</span></div>
+                                <div class="stat-heading">Ventas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-2">
+                            <i class="fa fa-product-hunt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count">{{ product }}</span></div>
+                                <div class="stat-heading">Productos</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-3">
+                            <i class="fa fa-paper-plane"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count">{{ supplier }}</span></div>
+                                <div class="stat-heading">Proveedores</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-4">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count">{{ buyer }}</span></div>
+                                <div class="stat-heading">Compradores</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Widgets -->
+    
+    <div class="clearfix"></div>
+
+    <!-- Orders -->
+    <div class="orders">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="box-title">Ultimas Ventas</h4>
+                    </div>
+                    <div class="card-body--">
+                        <div class="table-stats order-table ov-h">
+                            <table id="table" class="table table-striped table-bordered cell-border">
+                                <thead>
+                                    <tr>
+                                        <th class="serial">#</th>
+                                        <th>Total de la Venta</th>
+                                        <th>Pago con Tarjeta</th>
+                                        <th>Fiado</th>
+                                        <th>Usuario</th>
+                                        <th>Fecha</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if orders %}
+                                        {% for order in orders %}
+                                        <tr>
+                                            <td class="serial">{{ forloop.counter }}</td>
+                                            <td>{{ order.total }}</td>
+                                            <td>{% if order.by_card %}Sí{% else %}No{% endif %}</td>
+                                            <td>{% if order.by_trust %}Sí{% else %}No{% endif %}</td>
+                                            <td>{{ order.user.username }}</td>
+                                            <td>{{ order.created_date }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr><td>No hay información de ventas.</td></tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div> <!-- /.table-stats -->
+                    </div>
+                </div> <!-- /.card -->
+            </div>  <!-- /.col-lg-8 -->
+
+            
+        </div>
+    </div>
+    <!-- /.orders -->
+{% endblock content %}

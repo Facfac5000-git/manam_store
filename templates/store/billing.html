@@ -1,0 +1,109 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Consultar Liquidación{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Liquidación</a></li>
+                            <li class="active">Consulta</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Consultar Liquidación</strong>
+            </div>
+            <div class="card-body">
+                <!-- Credit Card -->
+                <div id="pay-invoice">
+                    <div class="card-body">
+                        {% if form.errors%}
+                            <div class="alert alert-danger">
+                                <p>{{form.errors}}</p>
+                            </div>
+                        {% endif %}
+                        <form action="#" method="post" novalidate="novalidate">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="form-group col-5">
+                                    <label for="date_from" class="control-label mb-1">Desde:</label>
+                                    {{ form.date_from }}
+                                </div>
+                                <div class="form-group col-5">
+                                    <label for="date_to" class="control-label mb-1">Hasta:</label>
+                                    {{ form.date_to }}
+                                </div>
+                                <div class="col-2" style="margin-top: 20px">
+                                    <button id="billing-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                        <span id="payment-button-amount">Consultar</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    {% if data %}
+                        <div class="card-body">
+                            <div class="form-group">
+                                <h2>{{ data.title }}</h2>
+                            </div>
+                            <div class="form-group">
+                                <p><strong>Total Vendido: </strong>{{ data.total }}</p>
+                            </div>
+                            <div class="form-group">
+                                <p><strong>Total Vendido (Precio de Lista): </strong>{{ data.list_total }}</p>
+                            </div>
+                            <div class="form-group">
+                                <p><strong>Total en pago con tarjeta: </strong>{{ data.by_card_total }}</p>
+                            </div>
+                            <div class="form-group">
+                                <p><strong>Total fiado: </strong>{{ data.by_trust_total }}</p>
+                            </div>
+                            <div class="form-group">
+                                <p><strong>Total de ventas realizadas: </strong>{{ data.orders_count }}</p>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            {% for user_data in data.users_data.values %}
+                                <div class="col-4">
+                                    <h3>Detalle del Usuario: {{user_data.username}}</h3>
+                                    <br>
+                                    <p><strong>Total Vendido: </strong>{{user_data.total}}</p>
+                                    <p><strong>Total Vendido (Precio de Lista): </strong>{{user_data.list_total}}</p>
+                                    <p><strong>Total en pago con tarjeta: </strong>{{user_data.by_card_total}}</p>
+                                    <p><strong>Total fiado: </strong>{{user_data.by_trust_total}}</p>
+                                    <p><strong>Total de ventas realizadas: </strong>{{user_data.orders_count}}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div> <!-- .card -->
+
+    </div><!--/.col-->
+</div>
+{% endblock content %}
