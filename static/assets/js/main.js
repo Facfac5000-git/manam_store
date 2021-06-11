@@ -153,7 +153,7 @@ jQuery(document).ready(function($) {
         let n = e.currentTarget.name.split('_')[1]
         let $div = $('#product-row-'+n);
         let remove_add = $('#barcode_'+n);
-        if(remove_add.val().length == remove_add.attr('maxlength')){
+        if(remove_add.val().length >= 8){
             let data = getProductbyBarcode(remove_add.val());
             if (data.error == 0){
                 let $clone = $div.clone();
@@ -263,7 +263,9 @@ function getProductbyBarcode(barcode){
                 if (response.error == 0) {
                     data_response = response
                 } else {
-                    alert(response.message)
+                    if(barcode.length == 13){
+                        alert(response.message)
+                    }
                 }
             },
             // on error
