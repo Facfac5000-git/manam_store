@@ -109,7 +109,8 @@ def edit_supplier(request):
         form.fields['name'].widget.attrs['value'] = supplier.name
         form.fields['address'].widget.attrs['value'] = supplier.address
         form.fields['phone_number'].widget.attrs['value'] = supplier.phone_number
-        form.fields['days'].initial = tuple(ast.literal_eval(supplier.days))
+        if supplier.days:
+            form.fields['days'].initial = tuple(ast.literal_eval(supplier.days))
         context = {
             'form': form, 'supplier_id': supplier_id
         }
