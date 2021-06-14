@@ -233,7 +233,7 @@ jQuery(document).ready(function($) {
         if(list_price == ''){list_price = 0};
         if(profit_porc == ''){profit_porc = 0};
         if(rounding == ''){rounding = 0};
-        $('#price').val(parseFloat(list_price)+(parseFloat(list_price)*parseFloat(profit_porc)/100)+parseFloat(rounding));
+        $('#price').val((parseFloat(list_price)+(parseFloat(list_price)*parseFloat(profit_porc)/100)+parseFloat(rounding)).toFixed(2));
     })
 
 /*    $(document).on('keyup', '.cash_total_control', function(e){
